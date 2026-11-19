@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SkillX Task Builder – create portable AI-supported vocational learning task packages." />
+  <title>SkillX Task Builder</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-wrap">
+      <button class="icon-btn mobile-only" id="menuBtn" type="button" aria-label="Open navigation">☰</button>
+      <a class="project-logo-wrap" href="https://skillx-elearningpills.com/" target="_blank" rel="noopener" title="SkillX project website">
+        <span class="project-logo-fallback" aria-hidden="true">SX</span>
+        <img class="project-logo" src="https://skillx-elearningpills.com/wp-content/uploads/2026/11/PROJE-LOGOSU.jpg" alt="SkillX project logo" onerror="this.style.display='none'" />
+      </a>
+      <div class="brand-copy">
+        <div class="brand">SkillX</div>
+        <div class="brand-sub">Task Builder</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="saveStatus" class="save-status">Saved locally</span>
+      <button class="ghost-btn" id="newBtn" type="button">New</button>
+      <button class="ghost-btn" id="openBtn" type="button">Open package</button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Change theme" title="Change theme">◐</button>
+      <button class="primary-btn" id="exportBtn" type="button">Export package</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="side-group">
+          <div class="side-label">TASK</div>
+          <a class="side-link active" href="#basic" data-section="basic"><span class="status-dot" data-status="basic"></span>Basic task</a>
+          <a class="side-link" href="#knowledge" data-section="knowledge"><span class="status-dot" data-status="knowledge"></span>Knowledge space</a>
+          <a class="side-link" href="#workflow" data-section="workflow"><span class="status-dot" data-status="workflow"></span>Professional workflow</a>
+        </div>
+
+        <div class="side-group">
+          <div class="side-label side-label-row"><span>SUBTASKS</span><button class="tiny-add" id="sideAddSubtask" type="button" title="Add subtask">＋</button></div>
+          <div id="subtaskNav" class="subtask-nav"></div>
+        </div>
+
+        <div class="side-group">
+          <div class="side-label">SUPPORT & MASTERY</div>
+          <a class="side-link" href="#inclusive" data-section="inclusive"><span class="status-dot" data-status="inclusive"></span>Inclusive support</a>
+          <a class="side-link" href="#attempt2" data-section="attempt2"><span class="status-dot" data-status="attempt2"></span>Attempt 2</a>
+          <a class="side-link" href="#assessment" data-section="assessment"><span class="status-dot" data-status="assessment"></span>Assessment</a>
+          <a class="side-link" href="#reflection" data-section="reflection"><span class="status-dot" data-status="reflection"></span>Reflection</a>
+          <a class="side-link" href="#assets" data-section="assets"><span class="status-dot" data-status="assets"></span>Attachments</a>
+        </div>
+
+        <div class="side-footer">
+          <div class="package-meter-label"><span>Package size</span><span id="packageSizeText">0 MB / 25 MB</span></div>
+          <div class="meter"><div class="meter-fill" id="packageMeter"></div></div>
+          <div class="small-note">Recommended maximum: 25 MB</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+      <section class="intro-row hero-strip">
+        <div>
+          <div class="eyebrow">IMMERSIVE PRACTICE · FEEDBACK · MASTERY</div>
+          <h1 id="pageTitle">Untitled task</h1>
+          <p class="lead">Turn authentic vocational tasks into reusable AI-supported learning packages with structured practice, feedback, changed conditions and measurable improvement.</p>
+        </div>
+        <button class="secondary-btn" id="previewBtn" type="button">Preview AI instructions</button>
+      </section>
+
+      <section class="editor-section" id="basic" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">01</span><h2>Basic task</h2></div>
+          <span class="required-tag">Required</span>
+        </div>
+        <p class="section-help">Describe the authentic vocational task exactly as the learner should see it. The task language determines the language of the AI conversation.</p>
+
+        <div class="field-grid two-col">
+          <label class="field">
+            <span class="field-label">Task title</span>
+            <input id="taskTitle" type="text" maxlength="160" placeholder="Short, clear task title" />
+          </label>
+          <label class="field">
+            <span class="field-label">Subject / vocational field <span class="optional">optional</span></span>
+            <input id="taskField" type="text" maxlength="160" placeholder="e.g. Digital design, Accounting, Construction" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field-label">Task description</span>
+          <textarea id="taskDescription" rows="7" placeholder="Write the learner-facing task here..."></textarea>
+        </label>
+
+        <div class="inline-assets">
+          <div class="inline-assets-head"><span>Task attachments</span><button class="text-btn" type="button" data-add-attachment="task">＋ Add attachment</button></div>
+          <div id="taskAttachmentList" class="attachment-list compact"></div>
+        </div>
+      </section>
+
+      <section class="editor-section" id="knowledge" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">02</span><h2>Knowledge space</h2></div>
+          <span class="optional-tag">Optional</span>
+        </div>
+        <p class="section-help">Provide professional knowledge, rules, terminology, standards, constraints or local procedures the AI may rely on while running the task.</p>
+        <label class="field">
+          <span class="field-label">Knowledge for the AI</span>
+          <textarea id="knowledgeText" rows="9" placeholder="Add the professional knowledge the AI should use..."></textarea>
+        </label>
+        <div class="inline-assets">
+          <div class="inline-assets-head"><span>Knowledge attachments</span><button class="text-btn" type="button" data-add-attachment="knowledge">＋ Add attachment</button></div>
+          <div id="knowledgeAttachmentList" class="attachment-list compact"></div>
+        </div>
+      </section>
+
+      <section class="editor-section" id="workflow" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">03</span><h2>Professional workflow & guidance</h2></div>
+          <span class="optional-tag">Recommended</span>
+        </div>
+        <p class="section-help">Describe the expected professional process. This is teacher-only information: the AI uses it to analyse performance and provide support, but does not reveal it in advance.</p>
+        <label class="field">
+          <span class="field-label">Expected professional workflow / acceptable solution path</span>
+          <textarea id="solutionGuidance" rows="8" placeholder="Describe important steps, sequencing, decisions, outputs and acceptable alternatives..."></textarea>
+        </label>
+        <label class="field">
+          <span class="field-label">Key professional decisions or standards <span class="optional">optional</span></span>
+          <textarea id="keyDecisions" rows="4" placeholder="What decisions, standards, safety rules or quality requirements matter most?"></textarea>
+        </label>
+        <label class="field">
+          <span class="field-label">General support if the learner is stuck <span class="optional">optional</span></span>
+          <textarea id="generalHelp" rows="4" placeholder="How should the AI support the learner without taking over the task?"></textarea>
+        </label>
+      </section>
+
+      <section class="editor-section" id="subtasks" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">04</span><h2>Subtasks</h2></div>
+          <button class="secondary-btn" id="addSubtaskBtn" type="button">＋ Add subtask</button>
+        </div>
+        <p class="section-help">Subtasks are deliberately generic. They may describe a professional step, question, decision, communication event, document activity, unexpected situation or any other part of the task.</p>
+        <div id="subtasksContainer" class="subtasks-container"></div>
+        <button class="add-block-btn" id="addSubtaskBottomBtn" type="button">＋ Add another subtask</button>
+      </section>
+
+      <section class="editor-section" id="inclusive" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">05</span><h2>Inclusive support</h2></div>
+          <span class="optional-tag">Optional</span>
+        </div>
+        <p class="section-help">Define additional scaffolding for learners who need it while keeping the same occupational competence expectations.</p>
+        <label class="field">
+          <span class="field-label">Additional learner support</span>
+          <textarea id="inclusiveSupport" rows="6" placeholder="e.g. shorter prompts, progressive hints, simpler wording, extra checkpoints, accessible alternatives..."></textarea>
+        </label>
+      </section>
+
+      <section class="editor-section" id="attempt2" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">06</span><h2>Attempt 2 · adaptation & mastery</h2></div>
+          <span class="optional-tag">Optional variation</span>
+        </div>
+        <p class="section-help">After teacher-validated feedback, the learner performs the task again. You may repeat the original task or introduce modified requirements, missing information, constraints or other changed conditions.</p>
+        <label class="toggle-row">
+          <input type="checkbox" id="attempt2Enabled" />
+          <span><strong>Use modified conditions or a transfer version for Attempt 2</strong><small>If disabled, the learner repeats the original task after feedback.</small></span>
+        </label>
+        <div id="attempt2Fields" class="conditional disabled-panel">
+          <label class="field">
+            <span class="field-label">Attempt 2 instructions <span class="optional">optional</span></span>
+            <textarea id="attempt2Description" rows="5" placeholder="Only add text here if the learner should receive new or modified instructions..."></textarea>
+          </label>
+          <label class="field">
+            <span class="field-label">Changed conditions / unexpected constraints</span>
+            <textarea id="attempt2Change" rows="4" placeholder="e.g. modified requirements, restricted resources, new information, time pressure..."></textarea>
+          </label>
+          <label class="field">
+            <span class="field-label">What competence or workflow should remain the same?</span>
+            <textarea id="attempt2Same" rows="3" placeholder="Identify what should remain comparable between the two attempts..."></textarea>
+          </label>
+          <div class="inline-assets">
+            <div class="inline-assets-head"><span>Attempt 2 attachments</span><button class="text-btn" type="button" data-add-attachment="attempt2">＋ Add attachment</button></div>
+            <div id="attempt2AttachmentList" class="attachment-list compact"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="editor-section" id="assessment" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">07</span><h2>Assessment</h2></div>
+          <span class="optional-tag">Editable defaults</span>
+        </div>
+        <p class="section-help">SkillX measures complete professional performance and improvement, not only the final answer. Edit these criteria to fit the vocational field.</p>
+
+        <div class="assessment-group">
+          <div class="assessment-group-head"><div><h3>Professional performance</h3><p>Observable quality of the occupational workflow and output.</p></div><button class="text-btn" id="addProfessionalCriterionBtn" type="button">＋ Add criterion</button></div>
+          <div id="professionalCriteriaList" class="criteria-list"></div>
+        </div>
+
+        <div class="assessment-group">
+          <div class="assessment-group-head"><div><h3>Learning process</h3><p>Independence, support needs, correction and improvement between attempts.</p></div><button class="text-btn" id="addLearningCriterionBtn" type="button">＋ Add criterion</button></div>
+          <div id="learningCriteriaList" class="criteria-list"></div>
+        </div>
+      </section>
+
+      <section class="editor-section" id="reflection" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">08</span><h2>Reflection</h2></div>
+          <span class="optional-tag">Editable defaults</span>
+        </div>
+        <p class="section-help">Reflection helps the learner identify what changed between attempts and how the learning can transfer to a similar workplace situation.</p>
+        <div id="reflectionList" class="criteria-list"></div>
+        <button class="text-btn" id="addReflectionBtn" type="button">＋ Add reflection question</button>
+      </section>
+
+      <section class="editor-section" id="assets" data-watch>
+        <div class="section-head">
+          <div><span class="step-no">09</span><h2>Attachments</h2></div>
+          <span class="optional-tag">Optional</span>
+        </div>
+        <p class="section-help">All task and subtask files are collected here. Recommended: max. 10 MB per file, 25 MB per package. Large images are automatically resized before export.</p>
+        <div class="dropzone" id="globalDropzone" tabindex="0">
+          <div class="drop-icon">＋</div>
+          <div><strong>Add general task attachment</strong><span>Drop a file here or click to browse</span></div>
+        </div>
+        <div id="allAttachmentsList" class="attachment-gallery"></div>
+        <div id="sizeWarning" class="notice warning hidden"></div>
+      </section>
+
+      <footer class="page-footer">
+        <div><strong>SkillX Task Builder</strong><br><span>Practice → Feedback → Adaptation → Mastery · package format v1.1</span></div>
+        <div class="footer-actions"><button class="secondary-btn" id="footerPreviewBtn" type="button">Preview</button><button class="primary-btn" id="footerExportBtn" type="button">Export package</button></div>
+      </footer>
+    </main>
+  </div>
+
+  <input id="openPackageInput" type="file" accept=".zip,.skillx.zip,application/zip" hidden />
+  <input id="attachmentInput" type="file" multiple hidden />
+
+  <dialog id="startDialog" class="modal start-modal">
+    <a class="start-project-logo" href="https://skillx-elearningpills.com/" target="_blank" rel="noopener">
+      <span class="project-logo-fallback large-fallback" aria-hidden="true">SX</span>
+      <img src="https://skillx-elearningpills.com/wp-content/uploads/2026/11/PROJE-LOGOSU.jpg" alt="SkillX project logo" onerror="this.style.display='none'" />
+    </a>
+    <div class="eyebrow">IMMERSIVE PRACTICE · FEEDBACK · MASTERY</div>
+    <h2>SkillX Task Builder</h2>
+    <p>Create portable AI-supported vocational learning packages.</p>
+    <div class="start-actions">
+      <button class="primary-btn large" id="startNewBtn" type="button">＋ Create new task</button>
+      <button class="secondary-btn large" id="startOpenBtn" type="button">↑ Open SkillX package</button>
+    </div>
+    <button class="text-btn" id="resumeBtn" type="button">Resume locally saved draft</button>
+  </dialog>
+
+  <dialog id="previewDialog" class="modal preview-modal">
+    <div class="dialog-head"><div><div class="eyebrow">GENERATED OUTPUT</div><h2>AI instructions preview</h2></div><button class="icon-btn" data-close-dialog="previewDialog" type="button">×</button></div>
+    <p class="dialog-note">This is the combined Markdown file that will be included in the exported package.</p>
+    <pre id="previewContent" class="preview-content"></pre>
+    <div class="dialog-actions"><button class="secondary-btn" data-close-dialog="previewDialog" type="button">Close</button><button class="primary-btn" id="downloadMdBtn" type="button">Download .md</button></div>
+  </dialog>
+
+  <dialog id="confirmDialog" class="modal confirm-modal">
+    <h2 id="confirmTitle">Start a new task?</h2>
+    <p id="confirmText">Your current local draft will be replaced.</p>
+    <div class="dialog-actions"><button class="secondary-btn" id="confirmCancel" type="button">Cancel</button><button class="danger-btn" id="confirmOk" type="button">Continue</button></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
