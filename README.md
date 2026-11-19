@@ -1,48 +1,26 @@
-# SkillX Task Builder v1.1
+# SkillX Task Builder v1.2
 
-Browser-based authoring tool for portable SkillX vocational learning packages.
+A lightweight browser-based editor for creating portable SkillX task packages.
 
-## Design goal
-
-The builder translates the SkillX **Immersive Practice–Feedback–Mastery Cycle** into a reusable teacher authoring workflow:
-
-1. authentic task;
-2. knowledge space;
-3. professional workflow guidance;
-4. generic subtasks and optional changed conditions;
-5. inclusive support;
-6. Attempt 2 / adaptation;
-7. professional and learning-process assessment;
-8. learner reflection;
-9. attachments.
-
-The generated AI protocol prioritises **simulation and observation over tutoring during Attempt 1**. Progressive support is used when needed, AI feedback is treated as a draft for teacher validation, and Attempt 2 is used to demonstrate improvement and adaptation.
-
-## Technology
-
-- Static HTML/CSS/JavaScript
-- Suitable for GitHub Pages
-- No server or database required
-- Local draft storage via IndexedDB
-- ZIP import/export via JSZip
-- v1.0 packages are migrated when opened
+## Main fields
+- Basic task: title, description, attachments
+- Knowledge space
+- Suggested solution / direction
+- Guidance if the learner is stuck
+- Any number of subtasks, each with its own attachments and guidance
 
 ## Package format
-
-Exported `.skillx.zip` packages contain:
-
+Export creates a `.skillx.zip` containing:
 - `manifest.json`
-- `task.json` — editable source
+- `task.json` — editable source data
 - `START_HERE.md`
 - `pedagogy.md`
-- `knowledge.md`
-- `assessment.md`
 - `SkillX_Task.md`
-- `README.txt`
-- `assets/` attachments
+- `assets/` — task and subtask attachments
 
-## Branding
+The same ZIP can later be opened in the Builder and edited again.
 
-The interface uses the official project logo URL from the SkillX project website and includes an SX fallback. The project-site-inspired visual palette is kept in one CSS token block at the top of `css/style.css` so exact brand colours can be adjusted without changing components.
+## Technical notes
+The site is static and suitable for GitHub Pages. JSZip is bundled locally; no backend or API key is needed for editing, importing or exporting packages.
 
-Official project website: https://skillx-elearningpills.com/
+The official SkillX logo is loaded from the project website, with a text fallback if the remote image is unavailable.
