@@ -1,4 +1,4 @@
-# SkillX Task Builder v1.5
+# SkillX Task Builder v1.6
 
 Static GitHub Pages-compatible authoring tool for SkillX task packages.
 

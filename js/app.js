@@ -2,10 +2,10 @@
   'use strict';
 
   const FORMAT = 'SkillX Task Package';
-  const FORMAT_VERSION = '1.5';
+  const FORMAT_VERSION = '1.6';
   const DB_NAME = 'skillx-task-builder';
   const STORE_NAME = 'drafts';
-  const DRAFT_KEY = 'current-v15';
+  const DRAFT_KEY = 'current-v16';
   const HARD_FILE_SIZE = 15 * 1024 * 1024;
   const RECOMMENDED_PACKAGE_SIZE = 25 * 1024 * 1024;
   const BLOCKED_EXT = new Set(['exe','bat','cmd','com','msi','js','vbs','ps1','sh','jar','zip','rar','7z','tar','gz']);
@@ -61,6 +61,10 @@
     }
   };
 
+  for (const lang of Object.keys(EXTRA_I18N)) {
+    Object.assign(I18N[lang], EXTRA_I18N[lang]);
+  }
+
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
   const uid = () => crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -73,7 +77,7 @@
 
   function t(key) {
     const lang = project?.task?.language || 'en';
-    return EXTRA_I18N[lang]?.[key] || I18N[lang]?.[key] || EXTRA_I18N.en[key] || I18N.en[key] || key;
+    return I18N[lang]?.[key] || I18N.en?.[key] || key;
   }
 
   function emptyProject() {

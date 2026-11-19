@@ -1,7 +1,7 @@
-# SkillX Task Builder v1.5 – GitHub Pages telepítés
+# SkillX Task Builder v1.6 – GitHub Pages telepítés
 
-1. Csomagold ki a `SkillX_Task_Builder_v1.5.zip` fájlt.
-2. A `skillx-builder-v1.5` mappa **tartalmát** töltsd fel a GitHub repository gyökerébe. Az `index.html` közvetlenül a repository gyökerében legyen.
+1. Csomagold ki a `SkillX_Task_Builder_v1.6.zip` fájlt.
+2. A `skillx-builder-v1.6` mappa **tartalmát** töltsd fel a GitHub repository gyökerébe. Az `index.html` közvetlenül a repository gyökerében legyen.
 3. GitHub: **Settings → Pages**.
 4. Build and deployment: **Deploy from a branch**.
 5. Branch: **main**, folder: **/(root)**.
