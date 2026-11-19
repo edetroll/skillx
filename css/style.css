@@ -215,3 +215,23 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); box-sha
   .content { width:min(100% - 30px, 900px); padding-top:30px; }
   .section-title-row { align-items:flex-start; }
 }
+
+/* v1.4 preview mirrors the editor's content structure without editing controls. */
+.subtask-add-row { display:flex; justify-content:flex-start; margin-top:16px; }
+.preview-dialog { width:min(920px, calc(100vw - 32px)); }
+.preview-content { display:grid; gap:0; }
+.preview-section { padding:4px 0 28px; margin-bottom:26px; border-bottom:1px solid var(--border); }
+.preview-section:last-child { border-bottom:0; margin-bottom:0; padding-bottom:0; }
+.preview-section > h2 { margin:0 0 22px; color:var(--heading); font-size:25px; line-height:1.2; letter-spacing:-.02em; }
+.preview-field { margin-bottom:20px; }
+.preview-field:last-child { margin-bottom:0; }
+.preview-label { margin-bottom:8px; color:var(--text); font-size:14px; font-weight:650; }
+.preview-plain, .preview-text { color:var(--text); }
+.preview-text > :first-child { margin-top:0; }
+.preview-text > :last-child { margin-bottom:0; }
+.preview-empty { color:var(--muted); font-size:14px; }
+.preview-files { display:grid; gap:7px; }
+.preview-file { display:grid; grid-template-columns:34px minmax(0,1fr); align-items:center; gap:10px; padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:var(--surface); }
+.preview-subtask { margin:18px 0 0; padding:20px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); }
+.preview-subtask:first-of-type { margin-top:0; }
+.preview-subtask h3 { margin:0 0 18px; color:var(--heading); font-size:17px; }

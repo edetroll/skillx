@@ -34,10 +34,7 @@
         <a href="#basic" class="nav-link active" data-i18n="basicTask"></a>
         <a href="#knowledge" class="nav-link" data-i18n="knowledgeSpace"></a>
         <a href="#guidance" class="nav-link" data-i18n="solutionGuidance"></a>
-        <div class="nav-group-head">
-          <a href="#subtasks" class="nav-link nav-link-plain" data-i18n="subtasks"></a>
-          <button id="sideAddSubtask" class="mini-add" type="button" aria-label="Add subtask">＋</button>
-        </div>
+        <a href="#subtasks" class="nav-link" data-i18n="subtasks"></a>
         <div id="subtaskNav" class="subtask-nav"></div>
       </nav>
       <div class="sidebar-bottom">
@@ -101,11 +98,11 @@
       </section>
 
       <section class="section" id="subtasks">
-        <div class="section-title-row">
-          <h1 data-i18n="subtasks"></h1>
+        <h1 data-i18n="subtasks"></h1>
+        <div id="subtasksContainer" class="subtasks"></div>
+        <div class="subtask-add-row">
           <button class="btn btn-secondary" id="addSubtaskBtn" type="button"><span data-i18n="addSubtask"></span></button>
         </div>
-        <div id="subtasksContainer" class="subtasks"></div>
       </section>
 
       <div class="bottom-actions">
@@ -132,10 +129,10 @@
       <h2 data-i18n="preview"></h2>
       <button class="icon-btn" type="button" data-close-dialog="previewDialog" aria-label="Close">×</button>
     </div>
-    <div id="previewContent" class="preview-content rendered-markdown"></div>
+    <div id="previewContent" class="preview-content"></div>
     <div class="dialog-actions">
       <button class="btn btn-light" type="button" data-close-dialog="previewDialog" data-i18n="close"></button>
-      <button class="btn btn-primary" id="downloadMdBtn" type="button" data-i18n="downloadMd"></button>
+      <button class="btn btn-primary" id="previewExportBtn" type="button" data-i18n="exportPackage"></button>
     </div>
   </dialog>
 
