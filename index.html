@@ -20,11 +20,17 @@
       <button class="btn btn-light" id="newBtn" type="button" data-i18n="newTask"></button>
       <button class="btn btn-light" id="openBtn" type="button" data-i18n="openPackage"></button>
       <button class="icon-btn theme-toggle" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
-      <button class="icon-btn accessibility-toggle" id="contrastBtn" type="button" aria-label="High contrast mode" title="High contrast mode">
-        <span class="accessibility-circle" aria-hidden="true"><i></i><i></i><i></i></span>
+      <button class="icon-btn accessibility-toggle" id="contrastBtn" type="button" aria-label="High contrast mode" title="High contrast mode" aria-pressed="false">
+        <svg class="accessibility-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <circle class="accessibility-bg" cx="16" cy="16" r="15"></circle>
+          <circle class="accessibility-dot" cx="16" cy="10" r="2.25"></circle>
+          <circle class="accessibility-dot" cx="10.5" cy="20" r="2.25"></circle>
+          <circle class="accessibility-dot" cx="21.5" cy="20" r="2.25"></circle>
+        </svg>
       </button>
       <button class="btn btn-light" id="previewBtn" type="button" data-i18n="preview"></button>
-      <button class="btn btn-primary" id="exportBtn" type="button" data-i18n="exportPackage"></button>
+      <button class="btn btn-light" id="exportBtn" type="button" data-i18n="saveProject"></button>
+      <button class="btn btn-primary" id="prepareAiBtn" type="button" data-i18n="prepareAI"></button>
     </div>
   </header>
 
@@ -107,7 +113,8 @@
 
       <div class="bottom-actions">
         <button class="btn btn-light" id="bottomPreviewBtn" type="button" data-i18n="preview"></button>
-        <button class="btn btn-primary" id="bottomExportBtn" type="button" data-i18n="exportPackage"></button>
+        <button class="btn btn-light" id="bottomExportBtn" type="button" data-i18n="saveProject"></button>
+        <button class="btn btn-primary" id="bottomPrepareAiBtn" type="button" data-i18n="prepareAI"></button>
       </div>
     </main>
   </div>
@@ -132,7 +139,30 @@
     <div id="previewContent" class="preview-content"></div>
     <div class="dialog-actions">
       <button class="btn btn-light" type="button" data-close-dialog="previewDialog" data-i18n="close"></button>
-      <button class="btn btn-primary" id="previewExportBtn" type="button" data-i18n="exportPackage"></button>
+      <button class="btn btn-primary" id="previewExportBtn" type="button" data-i18n="saveProject"></button>
+    </div>
+  </dialog>
+
+  <dialog id="aiDialog" class="dialog ai-dialog">
+    <div class="dialog-header">
+      <h2 data-i18n="prepareAI"></h2>
+      <button class="icon-btn" type="button" data-close-dialog="aiDialog" aria-label="Close">×</button>
+    </div>
+    <p class="ai-intro" data-i18n="aiPrepareText"></p>
+    <div class="ai-download-card ai-primary-file">
+      <div>
+        <div class="ai-file-title" id="aiMdName">SkillX_Task.md</div>
+        <div class="ai-file-note" data-i18n="aiMainFileNote"></div>
+      </div>
+      <button class="btn btn-primary" id="downloadAiFileBtn" type="button" data-i18n="downloadAIFile"></button>
+    </div>
+    <div id="aiAttachmentsSection" class="ai-attachments-section">
+      <h3 data-i18n="aiAttachments"></h3>
+      <p class="ai-attachments-note" data-i18n="aiAttachmentsNote"></p>
+      <div id="aiAttachmentsList" class="ai-attachment-list"></div>
+    </div>
+    <div class="dialog-actions">
+      <button class="btn btn-light" type="button" data-close-dialog="aiDialog" data-i18n="close"></button>
     </div>
   </dialog>
 

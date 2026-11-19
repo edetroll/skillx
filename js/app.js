@@ -2,10 +2,10 @@
   'use strict';
 
   const FORMAT = 'SkillX Task Package';
-  const FORMAT_VERSION = '1.4';
+  const FORMAT_VERSION = '1.5';
   const DB_NAME = 'skillx-task-builder';
   const STORE_NAME = 'drafts';
-  const DRAFT_KEY = 'current-v14';
+  const DRAFT_KEY = 'current-v15';
   const HARD_FILE_SIZE = 15 * 1024 * 1024;
   const RECOMMENDED_PACKAGE_SIZE = 25 * 1024 * 1024;
   const BLOCKED_EXT = new Set(['exe','bat','cmd','com','msi','js','vbs','ps1','sh','jar','zip','rar','7z','tar','gz']);
@@ -40,6 +40,27 @@
     }
   };
 
+  const EXTRA_I18N = {
+    en: {
+      saveProject:'Save project', prepareAI:'Prepare for AI', aiPrepareText:'Download the Markdown file and give it to the learner. The learner should upload it to the AI together with any attachments listed below.', aiMainFileNote:'This single file contains the task and the complete pedagogical instructions for the AI.', downloadAIFile:'Download AI file (.md)', aiAttachments:'Attachments', aiAttachmentsNote:'Upload these files together with the Markdown file in the same conversation.', download:'Download', noAiAttachments:'This task has no attachments.', projectSaved:'Project saved.', projectSaveFailed:'Could not save the project.', aiFileDownloaded:'AI file downloaded.'
+    },
+    hu: {
+      saveProject:'Projekt mentése', prepareAI:'Előkészítés AI-hoz', aiPrepareText:'Töltsd le a Markdown fájlt, és add oda a tanulónak. A tanuló ezt töltse fel az AI-nak az alább felsorolt mellékletekkel együtt.', aiMainFileNote:'Ez az egyetlen fájl tartalmazza a feladatot és az AI teljes pedagógiai instrukcióját.', downloadAIFile:'AI-fájl letöltése (.md)', aiAttachments:'Mellékletek', aiAttachmentsNote:'Ezeket a fájlokat a Markdown fájllal együtt, ugyanabba a beszélgetésbe kell feltölteni.', download:'Letöltés', noAiAttachments:'Ehhez a feladathoz nincs melléklet.', projectSaved:'A projekt elmentve.', projectSaveFailed:'A projekt mentése sikertelen.', aiFileDownloaded:'Az AI-fájl letöltve.'
+    },
+    tr: {
+      saveProject:'Projeyi kaydet', prepareAI:'AI için hazırla', aiPrepareText:'Markdown dosyasını indirin ve öğrenciye verin. Öğrenci, aşağıda listelenen eklerle birlikte bunu AI sistemine yüklemelidir.', aiMainFileNote:'Bu tek dosya görevi ve AI için tüm pedagojik talimatları içerir.', downloadAIFile:'AI dosyasını indir (.md)', aiAttachments:'Ekler', aiAttachmentsNote:'Bu dosyaları Markdown dosyasıyla birlikte aynı konuşmaya yükleyin.', download:'İndir', noAiAttachments:'Bu görevde ek yok.', projectSaved:'Proje kaydedildi.', projectSaveFailed:'Proje kaydedilemedi.', aiFileDownloaded:'AI dosyası indirildi.'
+    },
+    lt: {
+      saveProject:'Išsaugoti projektą', prepareAI:'Paruošti AI', aiPrepareText:'Atsisiųskite Markdown failą ir perduokite jį mokiniui. Mokinys turi jį įkelti į AI kartu su žemiau nurodytais priedais.', aiMainFileNote:'Šiame viename faile yra užduotis ir visos pedagoginės instrukcijos AI.', downloadAIFile:'Atsisiųsti AI failą (.md)', aiAttachments:'Priedai', aiAttachmentsNote:'Įkelkite šiuos failus kartu su Markdown failu į tą patį pokalbį.', download:'Atsisiųsti', noAiAttachments:'Ši užduotis neturi priedų.', projectSaved:'Projektas išsaugotas.', projectSaveFailed:'Nepavyko išsaugoti projekto.', aiFileDownloaded:'AI failas atsisiųstas.'
+    },
+    ro: {
+      saveProject:'Salvează proiectul', prepareAI:'Pregătește pentru AI', aiPrepareText:'Descarcă fișierul Markdown și oferă-l elevului. Elevul trebuie să îl încarce în AI împreună cu atașamentele enumerate mai jos.', aiMainFileNote:'Acest singur fișier conține sarcina și instrucțiunile pedagogice complete pentru AI.', downloadAIFile:'Descarcă fișierul AI (.md)', aiAttachments:'Atașamente', aiAttachmentsNote:'Încarcă aceste fișiere împreună cu fișierul Markdown în aceeași conversație.', download:'Descarcă', noAiAttachments:'Această sarcină nu are atașamente.', projectSaved:'Proiect salvat.', projectSaveFailed:'Proiectul nu a putut fi salvat.', aiFileDownloaded:'Fișierul AI a fost descărcat.'
+    },
+    el: {
+      saveProject:'Αποθήκευση έργου', prepareAI:'Προετοιμασία για AI', aiPrepareText:'Κατεβάστε το αρχείο Markdown και δώστε το στον μαθητή. Ο μαθητής πρέπει να το ανεβάσει στο AI μαζί με τα συνημμένα που αναφέρονται παρακάτω.', aiMainFileNote:'Αυτό το μοναδικό αρχείο περιέχει την εργασία και όλες τις παιδαγωγικές οδηγίες για το AI.', downloadAIFile:'Λήψη αρχείου AI (.md)', aiAttachments:'Συνημμένα', aiAttachmentsNote:'Ανεβάστε αυτά τα αρχεία μαζί με το Markdown στην ίδια συνομιλία.', download:'Λήψη', noAiAttachments:'Η εργασία δεν έχει συνημμένα.', projectSaved:'Το έργο αποθηκεύτηκε.', projectSaveFailed:'Η αποθήκευση του έργου απέτυχε.', aiFileDownloaded:'Το αρχείο AI λήφθηκε.'
+    }
+  };
+
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
   const uid = () => crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -52,7 +73,7 @@
 
   function t(key) {
     const lang = project?.task?.language || 'en';
-    return I18N[lang]?.[key] || I18N.en[key] || key;
+    return EXTRA_I18N[lang]?.[key] || I18N[lang]?.[key] || EXTRA_I18N.en[key] || I18N.en[key] || key;
   }
 
   function emptyProject() {
@@ -81,7 +102,9 @@
     $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $('#saveStatus').textContent = t('saved');
     $('#themeBtn').title = baseTheme === 'light' ? t('darkMode') : t('lightMode');
+    $('#themeBtn').setAttribute('aria-label', $('#themeBtn').title);
     $('#contrastBtn').title = t('contrastMode');
+    $('#contrastBtn').setAttribute('aria-label', t('contrastMode'));
     $('#menuBtn').setAttribute('aria-label', t('subtasks'));
     renderSubtasks();
     renderSubtaskNav();
@@ -145,7 +168,7 @@
       ...base, ...data, format:FORMAT, formatVersion:FORMAT_VERSION,
       task: {...base.task, language, title:task.title||'', description:task.description||'', knowledge:task.knowledge||'', solutionGuidance:task.solutionGuidance||task.solution||'', generalHelp:task.generalHelp||task.help||''},
       subtasks: subtasks.map(s => ({id:s.id||uid(), title:s.title||'', description:s.description||'', solution:s.solution||s.solutionGuidance||'', help:s.help||s.generalHelp||''})),
-      attachments: Array.isArray(data?.attachments) ? data.attachments : []
+      attachments: Array.isArray(data?.attachments) ? data.attachments.map(a => ({...a,id:a.id||uid()})) : []
     };
   }
 
@@ -310,7 +333,41 @@
   }
 
   function filesFor(ownerType,ownerId=null){return project.attachments.filter(a=>a.ownerType===ownerType&&(ownerId===null||a.ownerId===ownerId));}
-  function attachmentMarkdown(ownerType,ownerId=null){const files=filesFor(ownerType,ownerId);return files.length?files.map(a=>`- \`${a.path}\``).join('\n'):'';}
+
+  function aiAttachmentMap() {
+    const used = new Set();
+    const counts = new Map();
+    project.attachments.forEach(a => {
+      const key = String(a.name || 'attachment').toLowerCase();
+      counts.set(key, (counts.get(key) || 0) + 1);
+    });
+    const map = new Map();
+    project.attachments.forEach(a => {
+      const base = String(a.name || 'attachment').replace(/[\\/:*?"<>|]/g,'_');
+      let candidate = base;
+      if ((counts.get(String(a.name || 'attachment').toLowerCase()) || 0) > 1 || used.has(candidate.toLowerCase())) {
+        if (a.ownerType === 'task') candidate = `task-${base}`;
+        else {
+          const idx = project.subtasks.findIndex(s => s.id === a.ownerId);
+          candidate = `subtask-${String(Math.max(0,idx)+1).padStart(2,'0')}-${base}`;
+        }
+      }
+      let unique = candidate, n = 2;
+      while (used.has(unique.toLowerCase())) {
+        unique = candidate.replace(/(\.[^.]+)?$/, `-${n}$1`); n++;
+      }
+      used.add(unique.toLowerCase());
+      map.set(a.id, unique);
+    });
+    return map;
+  }
+
+  function attachmentMarkdown(ownerType,ownerId=null,mode='project'){
+    const files=filesFor(ownerType,ownerId);
+    if (!files.length) return '';
+    const aiMap = mode === 'ai' ? aiAttachmentMap() : null;
+    return files.map(a=>`- \`${mode==='ai' ? aiMap.get(a.id) : a.path}\``).join('\n');
+  }
 
   function pedagogyMd() {
     const lang=project.task.language||'en', langName=LANGS[lang]?.name||'English', start=LANGS[lang]?.start||LANGS.en.start;
@@ -319,20 +376,19 @@
 
   function combinedMd() {
     const lang=project.task.language||'en', langName=LANGS[lang]?.name||'English';
-    const taskAttachments=attachmentMarkdown('task');
+    const taskAttachments=attachmentMarkdown('task',null,'ai');
     const subtasks=project.subtasks.length?project.subtasks.map((s,i)=>{
-      const at=attachmentMarkdown('subtask',s.id); const title=s.title.trim()?` — ${s.title.trim()}`:'';
-      return `## Subtask ${i+1}${title}\n\n### Description\n${s.description||''}${at?`\n\n### Attachments\n${at}`:''}\n\n### Suggested solution / direction\n${s.solution||''}\n\n### Guidance if the learner is stuck\n${s.help||''}`;
+      const at=attachmentMarkdown('subtask',s.id,'ai'); const title=s.title.trim()?` — ${s.title.trim()}`:'';
+      return `## Subtask ${i+1}${title}\n\n### Description\n${s.description||''}${at?`\n\n### Attachments supplied separately\n${at}`:''}\n\n### Suggested solution / direction\n${s.solution||''}\n\n### Guidance if the learner is stuck\n${s.help||''}`;
     }).join('\n\n---\n\n'):'';
-    return `# SkillX Task Package\n\n## Mandatory AI startup instruction\nThis file is a complete learning session, not a document awaiting review. Do not ask what the user wants you to do with it. Read the complete package and start the learning interaction immediately.\n\nSESSION_LANGUAGE: **${lang} (${langName})**\n\nYour first response must display the learner-facing task title and task description, then begin with the startup invitation defined in the pedagogical protocol. Do not reveal the knowledge space, suggested solution, help text or future subtasks.\n\n---\n\n${pedagogyMd()}\n\n---\n\n# Task\n\n## Language\n${langName} (${lang})\n\n## Title\n${project.task.title||''}\n\n## Task description\n${project.task.description||''}${taskAttachments?`\n\n## Task attachments\n${taskAttachments}`:''}\n\n---\n\n# Teacher-only knowledge space\n${project.task.knowledge||''}\n\n---\n\n# Teacher-only suggested solution / direction\n${project.task.solutionGuidance||''}\n\n# Teacher-only guidance if the learner is stuck\n${project.task.generalHelp||''}${subtasks?`\n\n---\n\n# Teacher-only subtasks\n\n${subtasks}`:''}\n`;
+    return `# SkillX Task\n\n## Mandatory AI startup instruction\nThis Markdown file is a complete learning session, not a document awaiting review. Do not ask what the user wants you to do with it. Read the complete file and start the learning interaction immediately.\n\nSESSION_LANGUAGE: **${lang} (${langName})**\n\nAny attachments listed in this file are expected to be uploaded separately in the same conversation. Match them by filename.\n\nYour first response must display the learner-facing task title and task description, then begin with the startup invitation defined in the pedagogical protocol. Do not reveal the knowledge space, suggested solution, help text or future subtasks.\n\n---\n\n${pedagogyMd()}\n\n---\n\n# Task\n\n## Language\n${langName} (${lang})\n\n## Title\n${project.task.title||''}\n\n## Task description\n${project.task.description||''}${taskAttachments?`\n\n## Task attachments supplied separately\n${taskAttachments}`:''}\n\n---\n\n# Teacher-only knowledge space\n${project.task.knowledge||''}\n\n---\n\n# Teacher-only suggested solution / direction\n${project.task.solutionGuidance||''}\n\n# Teacher-only guidance if the learner is stuck\n${project.task.generalHelp||''}${subtasks?`\n\n---\n\n# Teacher-only subtasks\n\n${subtasks}`:''}\n`;
   }
 
-  function startHereMd() {
-    const lang=project.task.language||'en', langName=LANGS[lang]?.name||'English', start=LANGS[lang]?.start||LANGS.en.start;
-    return `# SKILLX — START THE LEARNING SESSION NOW\n\nThis archive is a complete SkillX learning task. It is not a file submitted for review.\n\nDo NOT ask whether the user wants you to inspect, review, summarise or check the package.\n\n1. Read \`SkillX_Task.md\`, \`pedagogy.md\`, \`task.json\` and any relevant attachments.\n2. Keep all teacher-only knowledge, solutions, help text and future subtasks hidden from the learner.\n3. The fixed session language is ${langName} (${lang}).\n4. Your first response must show the task title and task description.\n5. Then immediately write: **${start}**\n6. Do not add any other introduction and do not ask permission to begin.\n`;
+  function projectReadme() {
+    return `SkillX editable project package\n\nThis .skillx.zip file is intended for saving, sharing and reopening the task in SkillX Task Builder.\nIt is not the recommended file to upload directly to an AI chat service.\n\nTo run the task with an AI, open the project in SkillX Task Builder and use “Prepare for AI”. That function creates a single Markdown instruction file and lets you download any attachments separately.\n`;
   }
 
-  function manifestJson(){return JSON.stringify({format:FORMAT,formatVersion:FORMAT_VERSION,title:project.task.title,language:project.task.language,sessionLanguage:project.task.language,purpose:'Interactive SkillX learning session',launchInstruction:'Read 00_START_HERE.md and start the learning session immediately. Do not ask the user what to do with the package.',startFile:'00_START_HERE.md',aiFile:'SkillX_Task.md',pedagogyFile:'pedagogy.md',taskFile:'task.json'},null,2);}
+  function manifestJson(){return JSON.stringify({format:FORMAT,formatVersion:FORMAT_VERSION,title:project.task.title,language:project.task.language,sessionLanguage:project.task.language,purpose:'Editable SkillX Task Builder project',taskFile:'task.json',pedagogyFile:'pedagogy.md',recommendedAiWorkflow:'Use the Builder\'s Prepare for AI function and upload the generated Markdown plus attachments separately.'},null,2);}
 
   function inlineMarkdown(s) {
     return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/\\\((.*?)\\\)/g,'<span class="math-inline">$1</span>');
@@ -411,20 +467,63 @@
 
   function preview() { syncStateFromForm(); validate(false); renderPreview(); $('#previewDialog').showModal(); }
 
-  async function exportPackage() {
+  async function saveProjectPackage() {
     syncStateFromForm(); if(!validate(true))return; if(!window.JSZip){toast('ZIP support unavailable.');return;}
     refreshAttachmentPaths(); const zip=new JSZip();
-    zip.file('00_START_HERE.md',startHereMd()); zip.file('SkillX_Task.md',combinedMd()); zip.file('pedagogy.md',pedagogyMd()); zip.file('manifest.json',manifestJson()); zip.file('task.json',taskJson());
+    zip.file('README.txt',projectReadme());
+    zip.file('pedagogy.md',pedagogyMd());
+    zip.file('manifest.json',manifestJson());
+    zip.file('task.json',taskJson());
     for(const a of project.attachments)zip.file(a.path,a.blob);
     $('#saveStatus').textContent=t('saving');
-    try{const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});downloadBlob(blob,`${slugify(project.task.title)}.skillx.zip`);$('#saveStatus').textContent=t('saved');toast(t('packageExported'));}catch(e){console.error(e);$('#saveStatus').textContent=t('saveFailed');toast(t('exportFailed'));}
+    try{
+      const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+      downloadBlob(blob,`${slugify(project.task.title)}.skillx.zip`);
+      $('#saveStatus').textContent=t('saved'); toast(t('projectSaved'));
+    }catch(e){console.error(e);$('#saveStatus').textContent=t('saveFailed');toast(t('projectSaveFailed'));}
+  }
+
+  function aiMarkdownFilename() { return `${slugify(project.task.title)}-skillx.md`; }
+
+  function renderAiDialog() {
+    const map = aiAttachmentMap();
+    $('#aiMdName').textContent = aiMarkdownFilename();
+    const host = $('#aiAttachmentsList');
+    if (!project.attachments.length) {
+      host.innerHTML = `<div class="ai-empty">${esc(t('noAiAttachments'))}</div>`;
+      return;
+    }
+    host.innerHTML = project.attachments.map(a => `<div class="ai-attachment-row">
+      <div>
+        <div class="file-name">${esc(map.get(a.id) || a.name)}</div>
+        <div class="file-meta">${esc(bytes(a.size||0))}</div>
+      </div>
+      <button class="btn btn-light" type="button" data-download-ai-attachment="${esc(a.id)}">${esc(t('download'))}</button>
+    </div>`).join('');
+    $$('[data-download-ai-attachment]', host).forEach(btn => btn.onclick = () => {
+      const a = project.attachments.find(x => x.id === btn.dataset.downloadAiAttachment);
+      if (!a) return;
+      downloadBlob(a.blob, map.get(a.id) || a.name);
+    });
+  }
+
+  function prepareForAi() {
+    syncStateFromForm(); if(!validate(true))return;
+    renderAiDialog(); $('#aiDialog').showModal();
+  }
+
+  function downloadAiMarkdown() {
+    syncStateFromForm(); if(!validate(true))return;
+    const blob = new Blob([combinedMd()], {type:'text/markdown;charset=utf-8'});
+    downloadBlob(blob, aiMarkdownFilename());
+    toast(t('aiFileDownloaded'));
   }
 
   async function importPackage(file) {
     try {
       const zip=await JSZip.loadAsync(file); const tf=zip.file('task.json'); if(!tf)throw new Error('task.json missing');
       const data=JSON.parse(await tf.async('string')); const loaded=migrateProject(data); loaded.attachments=[];
-      for(const meta of(data.attachments||[])){const zf=zip.file(meta.path);if(!zf)continue;const blob=await zf.async('blob');loaded.attachments.push({...meta,size:blob.size,blob});}
+      for(const meta of(data.attachments||[])){const zf=zip.file(meta.path);if(!zf)continue;const blob=await zf.async('blob');loaded.attachments.push({...meta,id:meta.id||uid(),size:blob.size,blob});}
       project=loaded; syncFormFromState(); await saveDraft(); if($('#startDialog').open)$('#startDialog').close(); toast(`${t('opened')}: ${project.task.title||file.name}`);
     } catch(e){console.error(e);toast(`${t('openFailed')}: ${e.message}`);}
   }
@@ -434,7 +533,7 @@
   function confirmBox(title,text){$('#confirmTitle').textContent=title;$('#confirmText').textContent=text;$('#confirmDialog').showModal();return new Promise(resolve=>{confirmResolver=resolve;});}
   function resetProject(){project=emptyProject();syncFormFromState();saveDraft();window.scrollTo({top:0,behavior:'smooth'});}
 
-  function applyTheme(theme){document.documentElement.dataset.theme=theme;$('#themeBtn').textContent=baseTheme==='light'?'☾':'☀';$('#themeBtn').title=baseTheme==='light'?t('darkMode'):t('lightMode');}
+  function applyTheme(theme){document.documentElement.dataset.theme=theme;$('#themeBtn').textContent=baseTheme==='light'?'☾':'☀';$('#themeBtn').title=baseTheme==='light'?t('darkMode'):t('lightMode');$('#contrastBtn').setAttribute('aria-pressed',theme==='contrast'?'true':'false');}
   function toggleBaseTheme(){baseTheme=baseTheme==='light'?'dark':'light';storageSet('skillx-base-theme',baseTheme);applyTheme(baseTheme);}
   function toggleContrast(){const current=document.documentElement.dataset.theme;if(current==='contrast'){applyTheme(baseTheme);storageSet('skillx-contrast','0');}else{applyTheme('contrast');storageSet('skillx-contrast','1');}}
 
@@ -445,8 +544,9 @@
     $('#taskLanguage').addEventListener('change',()=>{project.task.language=$('#taskLanguage').value;$('#taskLanguage').classList.remove('invalid');applyLanguage();scheduleSave();});
     document.addEventListener('focusin',e=>{if(e.target.tagName==='TEXTAREA')focusedTextarea=e.target;});
     $('#addSubtaskBtn').onclick=addSubtask;bindAttachmentButtons();$('#attachmentInput').addEventListener('change',e=>addFiles(e.target.files));
-    $('#previewBtn').onclick=preview;$('#bottomPreviewBtn').onclick=preview;$('#exportBtn').onclick=exportPackage;$('#bottomExportBtn').onclick=exportPackage;
-    $('#previewExportBtn').onclick=exportPackage;
+    $('#previewBtn').onclick=preview;$('#bottomPreviewBtn').onclick=preview;$('#exportBtn').onclick=saveProjectPackage;$('#bottomExportBtn').onclick=saveProjectPackage;
+    $('#previewExportBtn').onclick=saveProjectPackage;
+    $('#prepareAiBtn').onclick=prepareForAi;$('#bottomPrepareAiBtn').onclick=prepareForAi;$('#downloadAiFileBtn').onclick=downloadAiMarkdown;
     $$('[data-close-dialog]').forEach(btn=>btn.onclick=()=>$('#'+btn.dataset.closeDialog).close());
     const openChooser=()=>{$('#openPackageInput').value='';$('#openPackageInput').click();};$('#openBtn').onclick=openChooser;$('#startOpenBtn').onclick=openChooser;$('#openPackageInput').addEventListener('change',e=>{if(e.target.files[0])importPackage(e.target.files[0]);});
     $('#newBtn').onclick=async()=>{if(await confirmBox(t('startNewTitle'),t('startNewText')))resetProject();};$('#startNewBtn').onclick=()=>{resetProject();$('#startDialog').close();};
