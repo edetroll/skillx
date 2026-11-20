@@ -1,7 +1,7 @@
-# SkillX Task Builder v1.6 – GitHub Pages telepítés
+# SkillX Task Builder v1.7 – GitHub Pages telepítés
 
-1. Csomagold ki a `SkillX_Task_Builder_v1.6.zip` fájlt.
-2. A `skillx-builder-v1.6` mappa **tartalmát** töltsd fel a GitHub repository gyökerébe. Az `index.html` közvetlenül a repository gyökerében legyen.
+1. Csomagold ki a `SkillX_Task_Builder_v1.7.zip` fájlt.
+2. A `skillx-builder-v1.7` mappa **tartalmát** töltsd fel a GitHub repository gyökerébe. Az `index.html` közvetlenül a repository gyökerében legyen.
 3. GitHub: **Settings → Pages**.
 4. Build and deployment: **Deploy from a branch**.
 5. Branch: **main**, folder: **/(root)**.
@@ -15,3 +15,9 @@
 A `.skillx.zip` projektfájlt nem érdemes közvetlenül ChatGPT-be, Geminibe vagy más AI-chatbe feltölteni, mert egyes szolgáltatások csak a ZIP tartalomjegyzékét látják.
 
 A ZIP-kezeléshez szükséges JSZip helyben van a projektben, ezért külön backend vagy API-kulcs nem szükséges.
+
+
+## Használat
+- A **Projekt mentése** gomb `.skillx.zip` fájlt készít későbbi szerkesztéshez.
+- Az **Előkészítés AI-hoz** gomb egyetlen `.md` instrukciós fájlt készít a tanulónak.
+- A tanuló ezt az `.md` fájlt tölti fel a választott AI-ba (például ChatGPT, Gemini, Claude vagy Grok), és ha vannak mellékletek, azokat is ugyanabba a beszélgetésbe tölti fel.
