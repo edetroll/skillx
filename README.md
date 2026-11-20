@@ -1,4 +1,4 @@
-# SkillX Task Builder v1.7
+# SkillX Task Builder v1.8
 
 Static GitHub Pages-compatible authoring tool for SkillX task packages.
 
@@ -10,16 +10,16 @@ Static GitHub Pages-compatible authoring tool for SkillX task packages.
 - light, dark-blue and separate high-contrast themes;
 - local browser draft storage;
 - editable `.skillx.zip` project import/export;
-- separate **Prepare for AI** workflow that generates one complete `.md` instruction file and lets the teacher download attachments separately;
-- generated pedagogical protocol with fixed session language, mandatory automatic session start, simulation-first behaviour and tutor-on-demand guidance.
+- separate **Download AI task** workflow: one `.md` file when there are no attachments, or one transport ZIP containing `SkillX_Task.md`, `README.txt` and all attachments when attachments exist;
+- generated pedagogical protocol with fixed session language, mandatory automatic session start, simulation-first behaviour, tutor-on-demand guidance, hidden teacher information protection, prompt-override resistance and an explicit task-focus guard that refuses unrelated learner requests and returns to the pending task state.
 
 ## Two export formats
 
-### Save project
+### Download reusable project
 Creates an editable `.skillx.zip` package for archiving, sharing with another teacher and reopening in SkillX Task Builder.
 
-### Prepare for AI
-Creates a single Markdown file containing the task and the full pedagogical protocol. If the task has attachments, the interface lists them separately so they can be uploaded together with the Markdown file to ChatGPT, Gemini or another AI service.
+### Download AI task
+If the task has no attachments, downloads a single `SkillX_Task.md` file containing the task and the full pedagogical protocol. If attachments exist, downloads one AI-task ZIP containing `SkillX_Task.md`, a short `README.txt`, and every attachment. The ZIP is only a transport package: extract it first, then upload the Markdown file and all extracted attachments together to ChatGPT, Gemini, Claude, Grok or another AI service.
 
 The `.skillx.zip` file is **not** intended to be uploaded directly to an AI chat service, because some AI interfaces only expose the ZIP file list and do not read the files inside the archive.
 

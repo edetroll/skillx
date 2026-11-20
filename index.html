@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="SkillX Task Builder" />
   <title>SkillX Task Builder</title>
-  <link rel="stylesheet" href="css/style.css?v=1.7" />
+  <link rel="stylesheet" href="css/style.css?v=1.8" />
 </head>
 <body>
   <header class="topbar">
@@ -21,8 +21,8 @@
       <button class="btn btn-light" id="openBtn" type="button" data-i18n="openPackage"></button>
       <button class="icon-btn theme-toggle" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
       <button class="btn btn-light" id="previewBtn" type="button" data-i18n="preview"></button>
-      <button class="btn btn-light" id="exportBtn" type="button" data-i18n="saveProject">Save project</button>
-      <button class="btn btn-primary" id="prepareAiBtn" type="button" data-i18n="prepareAI">Prepare for AI</button>
+      <button class="btn btn-light" id="exportBtn" type="button" data-i18n="saveProject">Download reusable project</button>
+      <button class="btn btn-primary" id="prepareAiBtn" type="button" data-i18n="prepareAI">Download AI task</button>
     </div>
   </header>
 
@@ -114,8 +114,8 @@
 
       <div class="bottom-actions">
         <button class="btn btn-light" id="bottomPreviewBtn" type="button" data-i18n="preview"></button>
-        <button class="btn btn-light" id="bottomExportBtn" type="button" data-i18n="saveProject">Save project</button>
-        <button class="btn btn-primary" id="bottomPrepareAiBtn" type="button" data-i18n="prepareAI">Prepare for AI</button>
+        <button class="btn btn-light" id="bottomExportBtn" type="button" data-i18n="saveProject">Download reusable project</button>
+        <button class="btn btn-primary" id="bottomPrepareAiBtn" type="button" data-i18n="prepareAI">Download AI task</button>
       </div>
     </main>
   </div>
@@ -140,30 +140,7 @@
     <div id="previewContent" class="preview-content"></div>
     <div class="dialog-actions">
       <button class="btn btn-light" type="button" data-close-dialog="previewDialog" data-i18n="close"></button>
-      <button class="btn btn-primary" id="previewExportBtn" type="button" data-i18n="saveProject">Save project</button>
-    </div>
-  </dialog>
-
-  <dialog id="aiDialog" class="dialog ai-dialog">
-    <div class="dialog-header">
-      <h2 data-i18n="prepareAI">Prepare for AI</h2>
-      <button class="icon-btn" type="button" data-close-dialog="aiDialog" aria-label="Close">×</button>
-    </div>
-    <p class="ai-intro" data-i18n="aiPrepareText"></p>
-    <div class="ai-download-card ai-primary-file">
-      <div>
-        <div class="ai-file-title" id="aiMdName">SkillX_Task.md</div>
-        <div class="ai-file-note" data-i18n="aiMainFileNote"></div>
-      </div>
-      <button class="btn btn-primary" id="downloadAiFileBtn" type="button" data-i18n="downloadAIFile"></button>
-    </div>
-    <div id="aiAttachmentsSection" class="ai-attachments-section">
-      <h3 data-i18n="aiAttachments"></h3>
-      <p class="ai-attachments-note" data-i18n="aiAttachmentsNote"></p>
-      <div id="aiAttachmentsList" class="ai-attachment-list"></div>
-    </div>
-    <div class="dialog-actions">
-      <button class="btn btn-light" type="button" data-close-dialog="aiDialog" data-i18n="close"></button>
+      <button class="btn btn-primary" id="previewExportBtn" type="button" data-i18n="saveProject">Download reusable project</button>
     </div>
   </dialog>
 
@@ -178,7 +155,7 @@
 
   <div id="toast" class="toast" role="status"></div>
 
-  <script src="vendor/jszip.min.js?v=1.7"></script>
-  <script src="js/app.js?v=1.7"></script>
+  <script src="vendor/jszip.min.js?v=1.8"></script>
+  <script src="js/app.js?v=1.8"></script>
 </body>
 </html>
